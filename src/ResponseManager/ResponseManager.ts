@@ -33,7 +33,8 @@ export default class ResponseManager {
   public listener = () => {
     bot.on('message', (user, userID, channelID, message, evt) => {
       const response = this.responses.find(res => res.isTriggered(message))
-      if (response) {
+      const respondingToSelf = userID === bot.id
+      if (response && !respondingToSelf) {
         const responseText = response.onTrigger(message)
         logger.info(`${user}: ${message} => ${bot.username}: ${responseText}`)
         bot.sendMessage({
