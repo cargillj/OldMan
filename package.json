@@ -33,6 +33,7 @@
   "dependencies": {
     "@types/node": "^12.11.7",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "moment": "^2.24.0",
     "typescript": "^3.6.4",
     "winston": "^3.2.1"
   },

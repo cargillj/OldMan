@@ -37,7 +37,7 @@ export default class ResponseManager {
       if (response && !respondingToSelf) {
         const responseText = response.onTrigger(message)
         logger.info(`${user}: ${message} => ${bot.username}: ${responseText}`)
-        bot.sendMessage({
+        bot.say({
           to: channelID,
           message: responseText
         })

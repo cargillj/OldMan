@@ -1,5 +1,7 @@
+import moment from 'moment'
 import Response from '../ResponseManager/Response'
 import { bot } from '../utils/Bot'
+import { logger } from '../utils/Logger'
 
 const CMD_PREFIX = '\\$'
 
@@ -33,6 +35,20 @@ export const age = new Response(
   "I'll candidly tell you my age :blush:"
 )
 
+const uptimePhrase = RegExp(`${CMD_PREFIX}uptime`)
+export const uptime = new Response(
+  '$uptime',
+  uptimePhrase,
+  msg => {
+    const duration = moment
+      .duration(moment().diff(moment(bot.birthDate)))
+      .asDays()
+      .toFixed(2)
+    return `I've been up for ${duration} days! I should take a nap.`
+  },
+  "I tell you how long I've been awake :timer:"
+)
+
 const unknownPhrase = RegExp(`${CMD_PREFIX}.*`)
 export const unknown = new Response(
   '$unknown',
@@ -41,4 +57,4 @@ export const unknown = new Response(
   'You tried to do something new and different and it scared me :tired_face:'
 )
 
-export const commands = [help, ping, age, unknown]
+export const commands = [help, ping, age, uptime, unknown]

@@ -1,15 +1,21 @@
 import * as Discord from 'discord.io'
 import * as auth from '../auth.json'
+import moment from 'moment'
 import { logger } from '../utils/Logger'
 
-var bot = new Discord.Client({
+class Bot extends Discord.Client {
+  birthDate: moment.Moment
+  say: Function
+  constructor(options) {
+    super(options)
+    this.birthDate = moment()
+    this.say = this.sendMessage
+  }
+}
+
+var bot = new Bot({
   token: auth.token,
   autorun: true
-})
-
-bot.on('ready', function(evt) {
-  logger.info('Connected')
-  logger.info('Logged in as: %s (%d)', bot.username, bot.id)
 })
 
 export { bot }
