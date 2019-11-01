@@ -1,6 +1,6 @@
 {
   "name": "old-man-bot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "I'm just an old bot, afraid of change.",
   "main": "src/bot.ts",
   "author": "cargillj",
@@ -17,7 +17,8 @@
     "clean": "rimraf build",
     "start": "rimraf build && tsc -p . && node build/bot.js",
     "test": "jest",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "release": "standard-version"
   },
   "jest": {
     "roots": [
@@ -25,11 +26,12 @@
     ],
     "verbose": true
   },
-  "pre-commit": [
-    "pre-commit-message",
-    "test",
-    "build"
-  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run test && npm run build"
+    }
+  },
   "dependencies": {
     "@types/node": "^12.11.7",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
@@ -41,12 +43,15 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "@types/jest": "^24.0.21",
     "babel-jest": "^24.9.0",
+    "husky": "^3.0.9",
     "jest": "^24.9.0",
     "npm-watch": "^0.6.0",
-    "pre-commit": "^1.2.2",
     "rimraf": "^3.0.0",
+    "standard-version": "^7.0.0",
     "ts-jest": "^24.1.0"
   }
 }
