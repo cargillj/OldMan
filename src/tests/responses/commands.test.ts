@@ -20,4 +20,8 @@ describe('commands', () => {
   test('unknown command', () => {
     expect(unknown.isTriggered('$asdf')).toBeTruthy()
   })
+
+  test("$ not at the beginning of message shouldn't trigger", () => {
+    expect(unknown.isTriggered('this $ is in the middle')).toBeFalsy()
+  })
 })

@@ -1,9 +1,8 @@
 import moment from 'moment'
 import Response from '../ResponseManager/Response'
 import { bot } from '../utils/Bot'
-import { logger } from '../utils/Logger'
 
-const CMD_PREFIX = '\\$'
+const CMD_PREFIX = '^\\$'
 
 const helpPhrase = RegExp(`${CMD_PREFIX}help`)
 export const help = new Response(
