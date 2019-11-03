@@ -2,6 +2,7 @@ import moment from 'moment'
 import axios from 'axios'
 import Response from '../ResponseManager/Response'
 import { bot } from '../utils/Bot'
+import * as auth from '../auth.json'
 
 const CMD_PREFIX = '^\\$'
 
@@ -54,20 +55,18 @@ export const pic = new Response(
   '$pic',
   picPhrase,
   async msg => {
-    /*
-      PLACEHOLDER
-      IMGUR is a no go, their search is awful.
-    */
-    const url = "https://api.imgur.com/3/gallery/top/search?q_exactly=old+man"
+    const url = "https://oldman.cognitiveservices.azure.com/bing/v7.0/images/search?q=old+person"
     const search = await axios.get(url, {
       headers: {
-        Authorization: 'Client-ID xxxxxxxxxxREDACTED'
+        "Ocp-Apim-Subscription-Key": auth.bingToken
       }
     });
 
-    if (search.status === 200 && search.data.data.length) {
-      const resultArray = search.data.data;
-      return resultArray[Math.floor(Math.random() * Math.floor(resultArray.length))].link;
+    console.log(search);
+
+    if (search.status === 200 && search.data.value.length) {
+      const resultArray = search.data.value;
+      return resultArray[Math.floor(Math.random() * Math.floor(resultArray.length - 1))].contentUrl;
     } else {
       return "I can't find any pictures. What was I looking for again?"
     }
