@@ -1,4 +1,5 @@
 import moment from 'moment'
+import axios from 'axios'
 import Response from '../ResponseManager/Response'
 import { bot } from '../utils/Bot'
 
@@ -48,6 +49,32 @@ export const uptime = new Response(
   "I tell you how long I've been awake :timer:"
 )
 
+const picPhrase = RegExp(`${CMD_PREFIX}.*`)
+export const pic = new Response(
+  '$pic',
+  picPhrase,
+  async msg => {
+    /*
+      PLACEHOLDER
+      IMGUR is a no go, their search is awful.
+    */
+    const url = "https://api.imgur.com/3/gallery/top/search?q_exactly=old+man"
+    const search = await axios.get(url, {
+      headers: {
+        Authorization: 'Client-ID xxxxxxxxxxREDACTED'
+      }
+    });
+
+    if (search.status === 200 && search.data.data.length) {
+      const resultArray = search.data.data;
+      return resultArray[Math.floor(Math.random() * Math.floor(resultArray.length))].link;
+    } else {
+      return "I can't find any pictures. What was I looking for again?"
+    }
+  },
+  "Here's a photograph of my old ragtag posse!"
+)
+
 const unknownPhrase = RegExp(`${CMD_PREFIX}.*`)
 export const unknown = new Response(
   '$unknown',
@@ -56,4 +83,4 @@ export const unknown = new Response(
   'You tried to do something new and different and it scared me :tired_face:'
 )
 
-export const commands = [help, ping, age, uptime, unknown]
+export const commands = [help, ping, age, uptime, pic, unknown]
