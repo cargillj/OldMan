@@ -50,7 +50,7 @@ export const uptime = new Response(
   "I tell you how long I've been awake :timer:"
 )
 
-const picPhrase = RegExp(`${CMD_PREFIX}.*`)
+const picPhrase = RegExp(`${CMD_PREFIX}pic`)
 export const pic = new Response(
   '$pic',
   picPhrase,
@@ -61,8 +61,6 @@ export const pic = new Response(
         "Ocp-Apim-Subscription-Key": auth.bingToken
       }
     });
-
-    console.log(search);
 
     if (search.status === 200 && search.data.value.length) {
       const resultArray = search.data.value;
