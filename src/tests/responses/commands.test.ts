@@ -1,4 +1,4 @@
-import { help, ping, age, uptime, unknown } from '../../responses/commands'
+import { help, ping, age, uptime, pic, unknown } from '../../responses/commands'
 
 describe('commands', () => {
   test('$ping command', () => {
@@ -15,6 +15,10 @@ describe('commands', () => {
 
   test('$uptime command', () => {
     expect(uptime.isTriggered('$uptime')).toBeTruthy()
+  })
+
+  test('$pic command', () => {
+    expect(pic.isTriggered('$pic')).toBeTruthy()
   })
 
   test('unknown command', () => {
