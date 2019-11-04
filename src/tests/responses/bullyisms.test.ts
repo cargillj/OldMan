@@ -1,4 +1,4 @@
-import { bullyTemplate } from '../../responses/bullyisms'
+import { bullyTemplate, millenialRage } from '../../responses/bullyisms'
 
 describe('bullyisms', () => {
   test('responds to bully template', () => {
@@ -22,6 +22,26 @@ describe('bullyisms', () => {
 
     expect(
       bullyTemplate.isTriggered('this sentence shouldnt trigger')
+    ).toBeFalsy()
+  })
+
+  test('millenial rage', () => {
+    expect(
+      millenialRage.isTriggered(
+        'back in my #day'
+      )
+    ).toBeTruthy()
+
+    expect(
+      millenialRage.isTriggered(
+        '<cfoutput>#cfcatch#</cfoutput>'
+      )
+    ).toBeTruthy()
+
+    expect(
+      millenialRage.isTriggered(
+        'hashtag blessed'
+      )
     ).toBeFalsy()
   })
 })
