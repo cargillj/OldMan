@@ -1,7 +1,6 @@
 import * as Discord from 'discord.io'
 import * as auth from '../auth.json'
 import moment from 'moment'
-import { logger } from '../utils/Logger'
 
 class Bot extends Discord.Client {
   birthDate: moment.Moment
