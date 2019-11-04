@@ -1,5 +1,5 @@
 import * as winston from 'winston'
-const { combine, timestamp, simple, splat, colorize, printf } = winston.format
+const { combine, timestamp, splat, colorize, printf, json } = winston.format
 
 const customFormat = printf(({ level, message, label, timestamp }) => {
   const labelText = label ? `- [${label}] -` : ''
@@ -7,8 +7,22 @@ const customFormat = printf(({ level, message, label, timestamp }) => {
 })
 
 export const configureWinston = () => {
-  winston.configure({
-    format: combine(timestamp(), splat(), colorize(), customFormat),
-    transports: [new winston.transports.Console()]
-  })
+  switch (process.env.NODE_ENV) {
+    case 'TEST':
+      winston.configure({
+        format: combine(timestamp(), splat(), colorize(), customFormat),
+        transports: [
+          new winston.transports.File({
+            filename: './test.log'
+          })
+        ]
+      })
+      break
+    default:
+      winston.configure({
+        format: combine(timestamp(), splat(), colorize(), customFormat),
+        transports: [new winston.transports.Console()]
+      })
+      break
+  }
 }

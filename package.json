@@ -15,8 +15,8 @@
     "pre-commit-message": "echo Performing pre-commit checks... && exit 0",
     "build": "tsc -p .",
     "clean": "rimraf build",
-    "start": "rimraf build && tsc -p . && node build/bot.js",
-    "test": "jest",
+    "start": "NODE_ENV=PROD rimraf build && tsc -p . && node build/bot.js",
+    "test": "NODE_ENV=TEST jest",
     "watch": "npm-watch",
     "release": "standard-version"
   },
@@ -53,6 +53,7 @@
     "npm-watch": "^0.6.0",
     "rimraf": "^3.0.0",
     "standard-version": "^7.0.0",
-    "ts-jest": "^24.1.0"
+    "ts-jest": "^24.1.0",
+    "win-node-env": "^0.4.0"
   }
 }
