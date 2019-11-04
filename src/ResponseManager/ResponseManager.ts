@@ -1,5 +1,5 @@
 import Response from './Response'
-import winston from 'winston'
+import { logger } from '../utils/Logger'
 import { bot } from '../utils/Bot'
 
 export default class ResponseManager {
@@ -15,19 +15,19 @@ export default class ResponseManager {
 
   public registerResponse = (response: Response) => {
     this.responses.push(response)
-    winston.info(`response registered: ${response.name}`)
+    logger.info(`response registered: ${response.name}`)
   }
 
   public unregisterResponse = (responseName: string) => {
     const index = this.responses.findIndex(res => res.name === responseName)
     const response = this.responses[index]
     this.responses.splice(index, 1)
-    winston.info(`response unregistered: ${response.name}`)
+    logger.info(`response unregistered: ${response.name}`)
   }
 
   public clearResponses = () => {
     this.responses = []
-    winston.info(`responses cleared`)
+    logger.info(`responses cleared`)
   }
 
   public listener = () => {
@@ -36,7 +36,7 @@ export default class ResponseManager {
       const respondingToSelf = userID === bot.id
       if (response && !respondingToSelf) {
         const responseText = await response.onTrigger(message)
-        winston.info(`${user}: ${message} => ${bot.username}: ${responseText}`)
+        logger.info(`${user}: ${message} => ${bot.username}: ${responseText}`)
         bot.say({
           to: channelID,
           message: responseText
