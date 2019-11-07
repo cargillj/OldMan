@@ -1,6 +1,12 @@
 import { bullyTemplate, millenialRage } from '../../responses/bullyisms'
+import Response from '../../ResponseManager/Response'
 
 describe('bullyisms', () => {
+  beforeEach(() => {
+    const mockIsRandomlyTriggered = jest.fn()
+    Response.prototype.isRandomlyTriggered = mockIsRandomlyTriggered
+    mockIsRandomlyTriggered.mockReturnValue(true)
+  })
   test('responds to bully template', () => {
     expect(
       bullyTemplate.isTriggered(
@@ -26,22 +32,12 @@ describe('bullyisms', () => {
   })
 
   test('millenial rage', () => {
-    expect(
-      millenialRage.isTriggered(
-        'back in my #day'
-      )
-    ).toBeTruthy()
+    expect(millenialRage.isTriggered('back in my #day')).toBeTruthy()
 
     expect(
-      millenialRage.isTriggered(
-        '<cfoutput>#cfcatch#</cfoutput>'
-      )
+      millenialRage.isTriggered('<cfoutput>#cfcatch#</cfoutput>')
     ).toBeTruthy()
 
-    expect(
-      millenialRage.isTriggered(
-        'hashtag blessed'
-      )
-    ).toBeFalsy()
+    expect(millenialRage.isTriggered('hashtag blessed')).toBeFalsy()
   })
 })
