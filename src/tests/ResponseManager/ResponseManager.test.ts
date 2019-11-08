@@ -3,7 +3,11 @@ import { Client } from '../../ResponseManager'
 
 describe('ResponseManager', () => {
   beforeEach(() => {
-    const testResponse = new Response('tester', RegExp('!test'), () => 'tested')
+    const testResponse = new Response({
+      name: 'tester',
+      trigger: RegExp('!test'),
+      onTrigger: () => 'tested'
+    })
     Client.registerResponse(testResponse)
   })
 
