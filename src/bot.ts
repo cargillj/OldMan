@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { configureWinston } from './utils/logger'
+import { configureWinston } from './utils/Logger'
 import { Client } from './ResponseManager'
 import { bot } from './utils/Bot'
 import { responses } from './responses'
