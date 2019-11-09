@@ -23,7 +23,7 @@ export const millenialRage = new Response({
   name: 'millenialRage',
   trigger: MILLENIAL_RAGE,
   onTrigger: MILLENIAL_RAGE_RESPONSE,
-  probability: 30
+  probability: 'sometimes'
 })
 
 export const bullyisms = [bullyTemplate, millenialRage]
