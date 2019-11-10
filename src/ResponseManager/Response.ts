@@ -1,5 +1,13 @@
 import winston from 'winston'
 
+type ProbabilityLevel =
+  | 'never'
+  | 'rarely'
+  | 'sometimes'
+  | 'neutral'
+  | 'usually'
+  | 'always'
+
 type ResponseOptions = {
   name: string
   trigger: RegExp
@@ -7,7 +15,7 @@ type ResponseOptions = {
     | ((message: string) => Promise<string>)
     | ((message: string) => string)
   desc?: string
-  probability?: number
+  probability?: ProbabilityLevel
 }
 
 export default class Response {
@@ -18,12 +26,22 @@ export default class Response {
     | ((message: string) => string)
   public desc: string
   private probability: number
+
+  private PROBABILITY_LEVEL = {
+    never: 0,
+    rarely: 20,
+    sometimes: 40,
+    neutral: 50,
+    usually: 80,
+    always: 100
+  }
+
   constructor(options: ResponseOptions) {
     this.name = options.name
     this.trigger = options.trigger
     this.onTrigger = options.onTrigger
     this.desc = options.desc || ''
-    this.probability = options.probability || 100
+    this.probability = this.PROBABILITY_LEVEL[options.probability] || 100
   }
 
   public isRandomlyTriggered() {
