@@ -1,8 +1,8 @@
 import moment from 'moment'
 import axios from 'axios'
-import Response from '../ResponseManager/Response'
-import { bot } from '../utils/Bot'
-import * as auth from '../auth.json'
+import Response from '../../DiscordBot/Managers/ResponseManager/Response'
+import DiscordBot from '../../DiscordBot'
+import * as auth from '../../auth.json'
 
 const CMD_PREFIX = '^\\$'
 
@@ -32,7 +32,7 @@ const agePhrase = RegExp(`${CMD_PREFIX}age`)
 export const age = new Response({
   name: '$age',
   trigger: agePhrase,
-  onTrigger: msg => `I'm **${bot.id}** years _young_`,
+  onTrigger: msg => `I'm **${DiscordBot.id}** years _young_`,
   desc: "I'll candidly tell you my age :blush:"
 })
 
@@ -42,7 +42,7 @@ export const uptime = new Response({
   trigger: uptimePhrase,
   onTrigger: msg => {
     const duration = moment
-      .duration(moment().diff(moment(bot.birthDate)))
+      .duration(moment().diff(moment(DiscordBot.birthDate)))
       .asDays()
       .toFixed(2)
     return `I've been up for ${duration} days! I should take a nap.`

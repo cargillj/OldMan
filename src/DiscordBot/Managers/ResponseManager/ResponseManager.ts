@@ -1,6 +1,6 @@
 import Response from './Response'
 import winston from 'winston'
-import { bot } from '../utils/Bot'
+import DiscordBot from '../../DiscordBot'
 
 export default class ResponseManager {
   private responses: Response[]
@@ -31,13 +31,15 @@ export default class ResponseManager {
   }
 
   public listener = () => {
-    bot.on('message', async (user, userID, channelID, message, evt) => {
+    DiscordBot.on('message', async (user, userID, channelID, message, evt) => {
       const response = this.responses.find(res => res.isTriggered(message))
-      const respondingToSelf = userID === bot.id
+      const respondingToSelf = userID === DiscordBot.id
       if (response && !respondingToSelf) {
         const responseText = await response.onTrigger(message)
-        winston.info(`${user}: ${message} => ${bot.username}: ${responseText}`)
-        bot.say({
+        winston.info(
+          `${user}: ${message} => ${DiscordBot.username}: ${responseText}`
+        )
+        DiscordBot.say({
           to: channelID,
           message: responseText
         })

@@ -1,5 +1,5 @@
 import * as winston from 'winston'
-const { combine, timestamp, splat, colorize, printf, json } = winston.format
+const { combine, timestamp, splat, colorize, printf } = winston.format
 
 const customFormat = printf(({ level, message, label, timestamp }) => {
   const labelText = label ? `- [${label}] -` : ''

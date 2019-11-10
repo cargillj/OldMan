@@ -1,5 +1,5 @@
-import Response from '../../ResponseManager/Response'
-import { Client } from '../../ResponseManager'
+import Response from '../../../../DiscordBot/Managers/ResponseManager/Response'
+import { Client } from '../../../../DiscordBot/Managers/ResponseManager'
 
 describe('ResponseManager', () => {
   beforeEach(() => {

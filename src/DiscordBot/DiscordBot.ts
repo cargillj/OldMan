@@ -12,9 +12,9 @@ class Bot extends Discord.Client {
   }
 }
 
-var bot = new Bot({
+var DiscordBot = new Bot({
   token: auth.token,
   autorun: true
 })
 
-export { bot }
+export default DiscordBot
