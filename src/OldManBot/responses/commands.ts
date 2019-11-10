@@ -1,6 +1,6 @@
 import moment from 'moment'
 import axios from 'axios'
-import Response from '../../DiscordBot/Managers/ResponseManager/Response'
+import { Response } from '../../DiscordBot/Managers/ResponseManager'
 import DiscordBot from '../../DiscordBot'
 import * as auth from '../../auth.json'
 
@@ -32,7 +32,7 @@ const agePhrase = RegExp(`${CMD_PREFIX}age`)
 export const age = new Response({
   name: '$age',
   trigger: agePhrase,
-  onTrigger: msg => `I'm **${DiscordBot.id}** years _young_`,
+  onTrigger: msg => `I'm **${DiscordBot.DiscordClient.id}** years _young_`,
   desc: "I'll candidly tell you my age :blush:"
 })
 

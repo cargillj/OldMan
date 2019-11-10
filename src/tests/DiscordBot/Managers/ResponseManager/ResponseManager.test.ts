@@ -1,5 +1,12 @@
-import Response from '../../../../DiscordBot/Managers/ResponseManager/Response'
-import { Client } from '../../../../DiscordBot/Managers/ResponseManager'
+import {
+  Response,
+  ResponseManager
+} from '../../../../DiscordBot/Managers/ResponseManager'
+
+jest.mock('discord.io')
+import Discord from 'discord.io'
+const mockDiscordClient = new Discord.Client({ token: 'asdf' })
+const Client = new ResponseManager(mockDiscordClient)
 
 describe('ResponseManager', () => {
   beforeEach(() => {
@@ -8,6 +15,7 @@ describe('ResponseManager', () => {
       trigger: RegExp('!test'),
       onTrigger: () => 'tested'
     })
+
     Client.registerResponse(testResponse)
   })
 

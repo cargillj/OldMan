@@ -1,15 +1,16 @@
 import Response from './Response'
 import winston from 'winston'
-import DiscordBot from '../../DiscordBot'
+import Discord from 'discord.io'
 
 export default class ResponseManager {
+  private client: Discord.Client
   private responses: Response[]
-  public constructor() {
+  public constructor(client) {
+    this.client = client
     this.responses = []
-    this.listener()
   }
 
-  public getResponseList(): string[] {
+  public getResponseList = () => {
     return this.responses.map(res => res.name)
   }
 
@@ -30,16 +31,16 @@ export default class ResponseManager {
     winston.info(`responses cleared`)
   }
 
-  public listener = () => {
-    DiscordBot.on('message', async (user, userID, channelID, message, evt) => {
+  public listen = () => {
+    this.client.on('message', async (user, userID, channelID, message, evt) => {
       const response = this.responses.find(res => res.isTriggered(message))
-      const respondingToSelf = userID === DiscordBot.id
+      const respondingToSelf = userID === this.client.id
       if (response && !respondingToSelf) {
         const responseText = await response.onTrigger(message)
         winston.info(
-          `${user}: ${message} => ${DiscordBot.username}: ${responseText}`
+          `${user}: ${message} => ${this.client.username}: ${responseText}`
         )
-        DiscordBot.say({
+        this.client.sendMessage({
           to: channelID,
           message: responseText
         })
