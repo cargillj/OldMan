@@ -1,6 +1,6 @@
 {
   "name": "old-man-bot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "I'm just an old bot, afraid of change.",
   "main": "src/OldManBot/OldMan.ts",
   "author": "cargillj",
