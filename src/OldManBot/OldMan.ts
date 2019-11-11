@@ -12,3 +12,6 @@ OldMan.ResponseManager.registerResponses(responses)
 OldMan.EventManager.registerEvents(events)
 OldMan.EventManager.scheduleEvents(scheduledEvents)
 OldMan.StatManager.registerStats(stats)
+
+process.on('exit', () => OldMan.stop())
+process.on('SIGINT', () => OldMan.stop())

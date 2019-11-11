@@ -35,6 +35,19 @@ class Bot {
       )
     })
   }
+
+  private disconnectFromDiscord = () => {
+    this.DiscordClient.disconnect()
+    winston.info('Bot disconnected...')
+  }
+
+  public stop = () => {
+    this.ResponseManager.clearResponses()
+    this.EventManager.unregisterEvents()
+    this.EventManager.unscheduleEvents()
+    this.StatManager.clearStats()
+    this.disconnectFromDiscord()
+  }
 }
 
 var DiscordBot = new Bot()
