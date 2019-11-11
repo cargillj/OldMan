@@ -5,6 +5,7 @@ import DiscordBot from '../../DiscordBot'
 import * as auth from '../../auth.json'
 
 const CMD_PREFIX = '^\\$'
+const NUTRITIONAL_LIMIT = 20
 
 const helpPhrase = RegExp(`${CMD_PREFIX}help`)
 export const help = new Response({
@@ -75,6 +76,26 @@ export const pic = new Response({
   desc: "Here's a photograph of my old ragtag posse!"
 })
 
+const statsPhrase = RegExp(`${CMD_PREFIX}stats`)
+export const stats = new Response({
+  name: '$stats',
+  trigger: statsPhrase,
+  onTrigger: msg => DiscordBot.StatManager.printStats(),
+  desc: 'I display my stats'
+})
+
+const feedPhrase = RegExp(`${CMD_PREFIX}feed`)
+export const feed = new Response({
+  name: '$feed',
+  trigger: feedPhrase,
+  onTrigger: msg => {
+    const nutritionalValue = Math.floor(Math.random() * NUTRITIONAL_LIMIT)
+    DiscordBot.StatManager.updateStatWithDelta('hunger', nutritionalValue)
+    return `:relaxed: Delicious! _(hunger +${nutritionalValue})_`
+  },
+  desc: "If I don't eat, I get cranky and eventually die!"
+})
+
 const unknownPhrase = RegExp(`${CMD_PREFIX}.*`)
 export const unknown = new Response({
   name: '$unknown',
@@ -84,4 +105,4 @@ export const unknown = new Response({
     'You tried to do something new and different and it scared me :tired_face:'
 })
 
-export const commands = [help, ping, age, uptime, pic, unknown]
+export const commands = [help, ping, age, uptime, pic, stats, feed, unknown]

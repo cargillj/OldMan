@@ -4,4 +4,4 @@ import { offensives } from './offensives'
 
 const responses = [...bullyisms, ...commands, ...offensives]
 
-export { responses }
+export default responses
