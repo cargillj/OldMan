@@ -16,7 +16,7 @@ describe('ResponseManager', () => {
       onTrigger: () => 'tested'
     })
 
-    Client.registerResponse(testResponse)
+    Client.registerResponses([testResponse])
   })
 
   afterEach(() => {

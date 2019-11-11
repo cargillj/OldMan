@@ -8,7 +8,7 @@ import * as auth from '../auth.json'
 configureWinston()
 
 OldMan.connectToDiscord({ token: auth.token, autorun: true })
-responses.map(response => OldMan.ResponseManager.registerResponse(response))
-stats.map(stat => OldMan.StatManager.registerStat(stat))
+OldMan.ResponseManager.registerResponses(responses)
 OldMan.EventManager.registerEvents(events)
 OldMan.EventManager.scheduleEvents(scheduledEvents)
+OldMan.StatManager.registerStats(stats)

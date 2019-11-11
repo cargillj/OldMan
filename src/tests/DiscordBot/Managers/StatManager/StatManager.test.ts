@@ -10,7 +10,7 @@ describe('StatManager', () => {
       startVal: 100
     })
 
-    sm.registerStat(testStat)
+    sm.registerStats([testStat])
   })
 
   afterEach(() => {

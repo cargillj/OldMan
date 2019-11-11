@@ -14,9 +14,11 @@ export default class ResponseManager {
     return this.responses.map(res => res.name)
   }
 
-  public registerResponse = (response: Response) => {
-    this.responses.push(response)
-    winston.info(`response registered: ${response.name}`)
+  public registerResponses = (responses: Response[]) => {
+    this.responses = [...this.responses, ...responses]
+    responses.forEach(response =>
+      winston.info(`response registered: ${response.name}`)
+    )
   }
 
   public unregisterResponse = (responseName: string) => {
