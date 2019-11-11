@@ -1,19 +1,27 @@
 import * as Discord from 'discord.io'
 import moment from 'moment'
 import winston from 'winston'
-import { ResponseManager } from './Managers'
-import { StatManager } from './Managers'
+import { EventManager, ResponseManager, StatManager } from './Managers'
 
 class Bot {
   // API
   public DiscordClient: Discord.Client
+  public EventManager: EventManager
   public ResponseManager: ResponseManager
   public StatManager: StatManager
 
   public birthDate: moment.Moment
   constructor() {
     this.birthDate = moment()
+    this.EventManager = new EventManager()
     this.StatManager = new StatManager()
+  }
+
+  public getGeneralChannel() {
+    let channel = Object.keys(this.DiscordClient.channels).find(
+      channelId => this.DiscordClient.channels[channelId].name === 'general'
+    )
+    return channel || Object.keys(this.DiscordClient.channels)[0]
   }
 
   public connectToDiscord = discordOptions => {
