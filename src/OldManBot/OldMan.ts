@@ -6,12 +6,13 @@ import stats from './stats'
 import * as auth from '../auth.json'
 
 configureWinston()
-
-OldMan.connectToDiscord({ token: auth.token, autorun: true })
-OldMan.ResponseManager.registerResponses(responses)
-OldMan.EventManager.registerEvents(events)
-OldMan.EventManager.scheduleEvents(scheduledEvents)
-OldMan.StatManager.registerStats(stats)
+OldMan.config({
+  discordAuthToken: auth.token,
+  events,
+  responses,
+  scheduledEvents,
+  stats
+})
 
 process.on('exit', () => OldMan.stop())
 process.on('SIGINT', () => OldMan.stop())

@@ -2,7 +2,17 @@ import * as Discord from 'discord.io'
 import moment from 'moment'
 import winston from 'winston'
 import { EventManager, ResponseManager, StatManager } from './Managers'
+import { BotEvent, ScheduledEvent } from './Managers/EventManager'
+import { Response } from './Managers/ResponseManager'
+import { Stat } from './Managers/StatManager'
 
+interface DiscordBotConfig {
+  readonly discordAuthToken: string
+  events?: BotEvent[]
+  responses?: Response[]
+  scheduledEvents?: ScheduledEvent[]
+  stats?: Stat[]
+}
 class Bot {
   // API
   public DiscordClient: Discord.Client
@@ -15,6 +25,21 @@ class Bot {
     this.birthDate = moment()
     this.EventManager = new EventManager()
     this.StatManager = new StatManager()
+  }
+
+  public config(options: DiscordBotConfig) {
+    const {
+      discordAuthToken,
+      events,
+      responses,
+      scheduledEvents,
+      stats
+    } = options
+    this.connectToDiscord({ token: discordAuthToken, autorun: true })
+    this.EventManager.registerEvents(events)
+    this.ResponseManager.registerResponses(responses)
+    this.EventManager.scheduleEvents(scheduledEvents)
+    this.StatManager.registerStats(stats)
   }
 
   public getGeneralChannel() {
