@@ -46,8 +46,8 @@ export default class EventManager {
   }
 
   public unscheduleEvents = () => {
-    Object.keys(this.scheduleEvents).forEach(name => {
-      this.scheduleEvents[name].forEach(scheduledEvent =>
+    Object.keys(this.scheduledEvents).forEach(name => {
+      this.scheduledEvents[name].forEach(scheduledEvent =>
         scheduledEvent.cancel()
       )
     })

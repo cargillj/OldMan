@@ -4,7 +4,7 @@ import { Response } from '../../DiscordBot/Managers/ResponseManager'
 import DiscordBot from '../../DiscordBot'
 import * as auth from '../../auth.json'
 
-const CMD_PREFIX = '^\\$'
+export const CMD_PREFIX = '^\\$'
 const NUTRITIONAL_LIMIT = 20
 
 const helpPhrase = RegExp(`${CMD_PREFIX}help`)
@@ -43,7 +43,7 @@ export const uptime = new Response({
   trigger: uptimePhrase,
   onTrigger: msg => {
     const duration = moment
-      .duration(moment().diff(moment(DiscordBot.birthDate)))
+      .duration(moment().diff(moment(DiscordBot.metadata.birthDate)))
       .asDays()
       .toFixed(2)
     return `I've been up for ${duration} days! I should take a nap.`

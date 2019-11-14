@@ -26,6 +26,9 @@ export default class StatManager {
   public updateStatWithDelta = (name, delta) =>
     this.stats[name].updateWithDelta(delta)
 
+  public restoreStat = name =>
+    (this.stats[name].value = this.stats[name].maxVal)
+
   public printStats = () => {
     return Object.keys(this.stats).reduce(
       (acc, statName) => (acc += `${this.stats[statName].toString()}\n`),

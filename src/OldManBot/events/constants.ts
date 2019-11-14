@@ -1,7 +1,6 @@
 const EVENTS = {
   HUNGER_PAINS: 'hungerPains',
-  MISSED_MEAL: 'missedMeal',
-  WHITE_OUT: 'whiteOut'
+  MISSED_MEAL: 'missedMeal'
 }
 
 export default EVENTS
