@@ -1,5 +1,8 @@
-import { bullyTemplate, millenialRage } from '../../responses/bullyisms'
-import Response from '../../ResponseManager/Response'
+import {
+  bullyTemplate,
+  millenialRage
+} from '../../../OldManBot/responses/bullyisms'
+import Response from '../../../DiscordBot/Managers/ResponseManager/Response'
 
 describe('bullyisms', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Response } from '../ResponseManager'
+import { Response } from '../../DiscordBot/Managers/ResponseManager'
 
 const boomerPhrase = RegExp('ok,? boomer', 'gi')
 export const boomer = new Response({

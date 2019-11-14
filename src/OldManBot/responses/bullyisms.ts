@@ -1,4 +1,4 @@
-import Response from '../ResponseManager/Response'
+import { Response } from '../../DiscordBot/Managers/ResponseManager'
 
 const BULLY_TEMPLATE = RegExp('(with|my) friends and (.+)')
 const BULLY_TEMPLATE_RESPONSE = msg => {

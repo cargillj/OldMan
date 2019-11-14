@@ -1,8 +1,8 @@
 {
   "name": "old-man-bot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "I'm just an old bot, afraid of change.",
-  "main": "src/bot.ts",
+  "main": "src/OldManBot/OldMan.ts",
   "author": "cargillj",
   "watch": {
     "start": {
@@ -15,7 +15,7 @@
     "pre-commit-message": "echo Performing pre-commit checks... && exit 0",
     "build": "tsc -p .",
     "clean": "rimraf build",
-    "start": "NODE_ENV=PROD rimraf build && tsc -p . && node build/bot.js",
+    "start": "NODE_ENV=PROD rimraf build && tsc -p . && node build/OldManBot/OldMan.js",
     "test": "NODE_ENV=TEST jest",
     "watch": "npm-watch",
     "release": "standard-version"
@@ -37,6 +37,7 @@
     "axios": "^0.19.0",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "moment": "^2.24.0",
+    "node-schedule": "^1.3.2",
     "typescript": "^3.6.4",
     "winston": "^3.2.1"
   },
