@@ -30,6 +30,12 @@ describe('bullyisms', () => {
     ).toBeTruthy()
 
     expect(
+      bullyTemplate.isTriggered(
+        'Its been FUN hanging out with Friends and john and other People'
+      )
+    ).toBeTruthy()
+
+    expect(
       bullyTemplate.isTriggered('this sentence shouldnt trigger')
     ).toBeFalsy()
   })
