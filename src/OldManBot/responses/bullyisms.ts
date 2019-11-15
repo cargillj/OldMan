@@ -1,6 +1,6 @@
 import { Response } from '../../DiscordBot/Managers/ResponseManager'
 
-const BULLY_TEMPLATE = RegExp('(with|my) friends and (.+)')
+const BULLY_TEMPLATE = RegExp('(with|my) friends and (.+)', 'gi')
 const BULLY_TEMPLATE_RESPONSE = msg => {
   const weakling = msg.match(BULLY_TEMPLATE)[2]
   return `Haha, yeah, fuck ${weakling}, that BITCH!`

@@ -9,5 +9,9 @@ describe('offensives', () => {
   })
   test('ok boomer', () => {
     expect(boomer.isTriggered('ok boomer')).toBeTruthy()
+    expect(boomer.isTriggered('ok, boomer')).toBeTruthy()
+    expect(boomer.isTriggered('OK, boomer')).toBeTruthy()
+    expect(boomer.isTriggered('Ok, Boomer')).toBeTruthy()
+    expect(boomer.isTriggered('Ok Boomer')).toBeTruthy()
   })
 })
