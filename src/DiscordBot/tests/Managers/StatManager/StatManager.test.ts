@@ -1,4 +1,4 @@
-import { Stat, StatManager } from '../../../../DiscordBot/Managers/StatManager'
+import { Stat, StatManager } from '../../../Managers/StatManager'
 
 const sm = new StatManager()
 

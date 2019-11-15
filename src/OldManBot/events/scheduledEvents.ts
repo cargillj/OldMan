@@ -1,4 +1,4 @@
-import { ScheduledEvent } from '../../DiscordBot/Managers/EventManager'
+import { ScheduledEvent } from '../../DiscordBot/'
 import EVENTS from './constants'
 
 const breakfast = '* 7 * * *'

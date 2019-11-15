@@ -1,7 +1,6 @@
-import DiscordBot from '../../../../DiscordBot'
+import { BotEvent, DiscordBot } from '../../../../DiscordBot'
 import { EVENTS } from '../constants'
-import { BotEvent } from '../../../../DiscordBot/Managers/EventManager'
-import { serverText } from '../../../../utils/textStyler'
+import { serverText } from '../../../utils/textStyler'
 
 const discharge = new BotEvent({
   name: EVENTS.DISCHARGED,
@@ -9,15 +8,15 @@ const discharge = new BotEvent({
     const oldMan =
       "Haha, you youngins didn't think you could get rid of me that easy, did you?"
     const server = serverText(
-      `${DiscordBot.DiscordClient.username} has regained conciousness and has headed home`
+      `${DiscordBot.username} has regained conciousness and has headed home`
     )
     const message = `${oldMan}\n\n${server}`
-    DiscordBot.DiscordClient.sendMessage({
+    DiscordBot.say({
       to: DiscordBot.getGeneralChannel(),
       message
     })
-    DiscordBot.StatManager.restoreStat('hunger')
-    DiscordBot.StatManager.restoreStat('health')
+    DiscordBot.restoreStat('hunger')
+    DiscordBot.restoreStat('health')
     DiscordBot.restoreFromCache()
   }
 })

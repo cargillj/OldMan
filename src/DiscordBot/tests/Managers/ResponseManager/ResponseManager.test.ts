@@ -1,7 +1,4 @@
-import {
-  Response,
-  ResponseManager
-} from '../../../../DiscordBot/Managers/ResponseManager'
+import { Response, ResponseManager } from '../../../Managers/ResponseManager'
 
 jest.mock('discord.io')
 import Discord from 'discord.io'

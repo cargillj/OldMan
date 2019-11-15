@@ -1,5 +1,4 @@
-import { Stat } from '../../DiscordBot/Managers/StatManager'
-import DiscordBot from '../../DiscordBot'
+import { DiscordBot, Stat } from '../../DiscordBot'
 import EVENTS from '../events/constants'
 
 const HUNGER_START = 100
@@ -14,13 +13,13 @@ const maxHungerListener = (stat: Stat) => {
 const minHungerListener = (stat: Stat) => {
   if (stat.value < HUNGER_MIN) {
     stat.value = 0
-    DiscordBot.EventManager.eventEmitter.emit(EVENTS.HUNGER_PAINS)
+    DiscordBot.emit(EVENTS.HUNGER_PAINS)
   }
 }
 
 const hungerLowListener = (stat: Stat) => {
   if (stat.value <= HUNGER_LOW_THRESHOLD && stat.value !== HUNGER_MIN) {
-    DiscordBot.DiscordClient.sendMessage({
+    DiscordBot.say({
       to: DiscordBot.getGeneralChannel(),
       message: `I'm getting kind of hungry... _${stat.name}: ${stat.value}_`
     })
