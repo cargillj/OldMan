@@ -1,4 +1,4 @@
-import { boomer } from '../../../OldManBot/responses/offensives'
+import { boomer } from '../../responses/offensives'
 import Response from '../../../DiscordBot/Managers/ResponseManager/Response'
 
 describe('offensives', () => {

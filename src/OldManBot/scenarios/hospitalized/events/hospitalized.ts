@@ -1,10 +1,9 @@
-import DiscordBot from '../../../../DiscordBot'
-import { BotEvent } from '../../../../DiscordBot/Managers/EventManager'
+import { BotEvent, DiscordBot } from '../../../../DiscordBot'
 import moment from 'moment'
 import { EVENTS } from '../constants'
 import { commands } from '../responses'
 import { discharged } from '.'
-import { serverText } from '../../../../utils/textStyler'
+import { serverText } from '../../../utils/textStyler'
 
 const MAX_HOURS_HOSPITALIZED = 6
 const MAX_TIME_UNTIL_DISCHARGE = 1000 * 60 * 60 * MAX_HOURS_HOSPITALIZED
@@ -18,27 +17,27 @@ const hospitalized = new BotEvent({
       .asDays()
       .toFixed(2)
     const serverStatus = serverText(
-      `${DiscordBot.DiscordClient.username} has whited out after ${dayCount} days`
+      `${DiscordBot.username} has whited out after ${dayCount} days`
     )
     const message = `${whiteOutResponse}\n${serverStatus}`
-    DiscordBot.DiscordClient.sendMessage({
+    DiscordBot.say({
       to: DiscordBot.getGeneralChannel(),
       message
     })
 
     DiscordBot.metadata.status = 'hospitalized'
-    DiscordBot.ResponseManager.clearResponses()
-    DiscordBot.EventManager.unregisterEvents()
-    DiscordBot.EventManager.unscheduleEvents()
+    DiscordBot.clearResponses()
+    DiscordBot.unregisterEvents()
+    DiscordBot.unscheduleEvents()
 
-    DiscordBot.ResponseManager.registerResponses(commands)
-    DiscordBot.EventManager.registerEvents([discharged])
+    DiscordBot.registerResponses(commands)
+    DiscordBot.registerEvents([discharged])
 
     const randomTimeUntilDischarge = Math.floor(
       Math.random() * MAX_TIME_UNTIL_DISCHARGE
     )
     setTimeout(
-      () => DiscordBot.EventManager.eventEmitter.emit(EVENTS.DISCHARGED),
+      () => DiscordBot.emit(EVENTS.DISCHARGED),
       randomTimeUntilDischarge
     )
   }

@@ -1,7 +1,6 @@
 import moment from 'moment'
 import axios from 'axios'
-import { Response } from '../../DiscordBot/Managers/ResponseManager'
-import DiscordBot from '../../DiscordBot'
+import { DiscordBot, Response } from '../../DiscordBot'
 import * as auth from '../../auth.json'
 
 export const CMD_PREFIX = '^\\$'
@@ -11,7 +10,7 @@ const helpPhrase = RegExp(`${CMD_PREFIX}help`)
 export const help = new Response({
   name: '$help',
   trigger: helpPhrase,
-  onTrigger: msg => {
+  onTrigger: () => {
     const helpText = commands.reduce(
       (acc, cmd) => (acc += `\`${cmd.name}\` - ${cmd.desc}\n\n`),
       ''
@@ -25,7 +24,7 @@ const pingPhrase = RegExp(`${CMD_PREFIX}ping`)
 export const ping = new Response({
   name: '$ping',
   trigger: pingPhrase,
-  onTrigger: msg => 'pong! :ping_pong:',
+  onTrigger: () => 'pong! :ping_pong:',
   desc: 'I might be slow these days but I can still slap balls with you'
 })
 
@@ -33,7 +32,7 @@ const agePhrase = RegExp(`${CMD_PREFIX}age`)
 export const age = new Response({
   name: '$age',
   trigger: agePhrase,
-  onTrigger: msg => `I'm **${DiscordBot.DiscordClient.id}** years _young_`,
+  onTrigger: () => `I'm **${DiscordBot.id}** years _young_`,
   desc: "I'll candidly tell you my age :blush:"
 })
 
@@ -41,7 +40,7 @@ const uptimePhrase = RegExp(`${CMD_PREFIX}uptime`)
 export const uptime = new Response({
   name: '$uptime',
   trigger: uptimePhrase,
-  onTrigger: msg => {
+  onTrigger: () => {
     const duration = moment
       .duration(moment().diff(moment(DiscordBot.metadata.birthDate)))
       .asDays()
@@ -55,7 +54,7 @@ const picPhrase = RegExp(`${CMD_PREFIX}pic`)
 export const pic = new Response({
   name: '$pic',
   trigger: picPhrase,
-  onTrigger: async msg => {
+  onTrigger: async () => {
     const url =
       'https://oldman.cognitiveservices.azure.com/bing/v7.0/images/search?q=old+person'
     const search = await axios.get(url, {
@@ -80,7 +79,7 @@ const statsPhrase = RegExp(`${CMD_PREFIX}stats`)
 export const stats = new Response({
   name: '$stats',
   trigger: statsPhrase,
-  onTrigger: msg => DiscordBot.StatManager.printStats(),
+  onTrigger: () => DiscordBot.printStats(),
   desc: 'I display my stats'
 })
 
@@ -88,9 +87,9 @@ const feedPhrase = RegExp(`${CMD_PREFIX}feed`)
 export const feed = new Response({
   name: '$feed',
   trigger: feedPhrase,
-  onTrigger: msg => {
+  onTrigger: () => {
     const nutritionalValue = Math.floor(Math.random() * NUTRITIONAL_LIMIT)
-    DiscordBot.StatManager.updateStatWithDelta('hunger', nutritionalValue)
+    DiscordBot.updateStatWithDelta('hunger', nutritionalValue)
     return `:relaxed: Delicious! _(hunger +${nutritionalValue})_`
   },
   desc: "If I don't eat, I get cranky and eventually die!"
@@ -100,7 +99,7 @@ const unknownPhrase = RegExp(`${CMD_PREFIX}.*`)
 export const unknown = new Response({
   name: '$unknown',
   trigger: unknownPhrase,
-  onTrigger: msg => "What!? My ear's aren't as good as they used to be!",
+  onTrigger: () => "What!? My ear's aren't as good as they used to be!",
   desc:
     'You tried to do something new and different and it scared me :tired_face:'
 })

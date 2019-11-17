@@ -1,7 +1,4 @@
-import {
-  bullyTemplate,
-  millenialRage
-} from '../../../OldManBot/responses/bullyisms'
+import { bullyTemplate, millenialRage } from '../../responses/bullyisms'
 import Response from '../../../DiscordBot/Managers/ResponseManager/Response'
 
 describe('bullyisms', () => {

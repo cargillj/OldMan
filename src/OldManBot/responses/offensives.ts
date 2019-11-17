@@ -1,10 +1,10 @@
-import { Response } from '../../DiscordBot/Managers/ResponseManager'
+import { Response } from '../../DiscordBot'
 
 const boomerPhrase = RegExp('ok,? boomer', 'gi')
 export const boomer = new Response({
   name: 'okBoomer',
   trigger: boomerPhrase,
-  onTrigger: msg =>
+  onTrigger: () =>
     '_Ok millenial_, you can go and cry in your safe space now :baby:',
   probability: 'sometimes'
 })

@@ -1,11 +1,4 @@
-import {
-  help,
-  ping,
-  age,
-  uptime,
-  pic,
-  unknown
-} from '../../../OldManBot/responses/commands'
+import { help, ping, age, uptime, pic, unknown } from '../../responses/commands'
 
 describe('commands', () => {
   test('$ping command', () => {

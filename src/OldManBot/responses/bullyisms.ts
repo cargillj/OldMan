@@ -1,4 +1,4 @@
-import { Response } from '../../DiscordBot/Managers/ResponseManager'
+import { Response } from '../../DiscordBot'
 
 const BULLY_TEMPLATE = RegExp('(with|my) friends and (.+)')
 const BULLY_TEMPLATE_RESPONSE = msg => {
@@ -15,7 +15,7 @@ export const bullyTemplate = new Response({
 const MILLENIAL_RAGE = RegExp(
   '(?:^|\\B)#(?![0-9_]+\\b)([a-zA-Z0-9_]{1,30})(\\b|\\r)'
 ) // https://stackoverflow.com/a/42551826
-const MILLENIAL_RAGE_RESPONSE = msg => {
+const MILLENIAL_RAGE_RESPONSE = () => {
   return 'These youngins and their instasnaps and their snapbooks. Back in my day we talked to people face to face. 😡'
 }
 

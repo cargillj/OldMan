@@ -1,6 +1,6 @@
 module.exports = {
   roots: ['<rootDir>/src'],
-  setupFiles: ['./src/tests/setup.ts'],
+  setupFiles: ['./src/DiscordBot/tests/setup.ts'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   }

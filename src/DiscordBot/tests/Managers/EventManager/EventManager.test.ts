@@ -1,7 +1,4 @@
-import {
-  BotEvent,
-  EventManager
-} from '../../../../DiscordBot/Managers/EventManager'
+import { BotEvent, EventManager } from '../../../Managers/EventManager'
 
 const em = new EventManager()
 
