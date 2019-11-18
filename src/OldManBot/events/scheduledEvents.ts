@@ -1,11 +1,9 @@
 import { ScheduledEvent } from '../../DiscordBot/'
 import EVENTS from './constants'
 
-const breakfast = '* 7 * * *'
-const lunch = '* 11 * * *'
-const dinner = '* 17 * * *'
+const meal = '* */8 * * *'
 
-const meal = new ScheduledEvent(EVENTS.MISSED_MEAL, [breakfast, lunch, dinner])
+const scheduledMeals = new ScheduledEvent(EVENTS.MISSED_MEAL, [meal])
 
-const scheduledEvents = [meal]
+const scheduledEvents = [scheduledMeals]
 export default scheduledEvents

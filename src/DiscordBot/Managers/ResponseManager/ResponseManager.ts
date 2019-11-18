@@ -5,8 +5,7 @@ import Discord from 'discord.io'
 export default class ResponseManager {
   private client: Discord.Client
   private responses: Response[]
-  public constructor(client) {
-    this.client = client
+  public constructor() {
     this.responses = []
   }
 
@@ -33,7 +32,8 @@ export default class ResponseManager {
     winston.info(`responses cleared`)
   }
 
-  public listen = () => {
+  public listen = client => {
+    this.client = client
     this.client.on('message', async (user, userID, channelID, message, evt) => {
       const response = this.responses.find(res => res.isTriggered(message))
       const respondingToSelf = userID === this.client.id

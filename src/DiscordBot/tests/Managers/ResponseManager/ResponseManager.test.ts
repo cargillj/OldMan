@@ -1,16 +1,12 @@
 import { Response, ResponseManager } from '../../../Managers/ResponseManager'
-
-jest.mock('discord.io')
-import Discord from 'discord.io'
-const mockDiscordClient = new Discord.Client({ token: 'asdf' })
-const Client = new ResponseManager(mockDiscordClient)
+const Client = new ResponseManager()
 
 describe('ResponseManager', () => {
   beforeEach(() => {
     const testResponse = new Response({
       name: 'tester',
       trigger: RegExp('!test'),
-      onTrigger: () => 'tested'
+      onTrigger: [() => 'tested']
     })
 
     Client.registerResponses([testResponse])

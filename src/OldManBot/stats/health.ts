@@ -5,10 +5,6 @@ const HEALTH_MAX = 100
 const HEALTH_MIN = 0
 const HEALTH_LOW_THRESHOLD = 20
 
-const maxHealthListener = (stat: Stat) => {
-  if (stat.value > 100) stat.value = 100
-}
-
 const minHealthListener = (stat: Stat) => {
   if (stat.value <= HEALTH_MIN) DiscordBot.emit(EVENTS.HOSPITALIZED)
 }
@@ -25,7 +21,7 @@ const healthLowListener = (stat: Stat) => {
 const health = new Stat({
   name: 'health',
   icon: ':sparkling_heart:',
-  listeners: [maxHealthListener, minHealthListener, healthLowListener],
+  listeners: [minHealthListener, healthLowListener],
   startVal: HEALTH_MAX
 })
 

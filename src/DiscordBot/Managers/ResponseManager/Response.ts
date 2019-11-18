@@ -12,36 +12,43 @@ type ResponseOptions = {
   name: string
   trigger: RegExp
   onTrigger:
-    | ((message: string) => Promise<string>)
-    | ((message: string) => string)
+    | ((message: string) => Promise<string>)[]
+    | ((message: string) => string)[]
   desc?: string
   probability?: ProbabilityLevel
+}
+
+const PROBABILITY_LEVEL = {
+  never: 0,
+  rarely: 20,
+  sometimes: 40,
+  neutral: 50,
+  usually: 80,
+  always: 100
 }
 
 export default class Response {
   public name: string
   private trigger: RegExp
-  public onTrigger:
-    | ((message: string) => Promise<string>)
-    | ((message: string) => string)
+  private onTriggers:
+    | ((message?: string) => Promise<string>)[]
+    | ((message?: string) => string)[]
   public desc: string
   private probability: number
-
-  private PROBABILITY_LEVEL = {
-    never: 0,
-    rarely: 20,
-    sometimes: 40,
-    neutral: 50,
-    usually: 80,
-    always: 100
-  }
 
   constructor(options: ResponseOptions) {
     this.name = options.name
     this.trigger = options.trigger
-    this.onTrigger = options.onTrigger
+    this.onTriggers = options.onTrigger
     this.desc = options.desc || ''
-    this.probability = this.PROBABILITY_LEVEL[options.probability] || 100
+    this.probability = PROBABILITY_LEVEL[options.probability] || 100
+  }
+
+  public onTrigger(message?: string) {
+    const numTriggers = this.onTriggers.length
+    const index = Math.floor(Math.random() * numTriggers)
+    const trigger = this.onTriggers[index]
+    return message ? trigger(message) : trigger()
   }
 
   public isRandomlyTriggered() {

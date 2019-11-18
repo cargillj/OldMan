@@ -34,6 +34,11 @@ export default class Stat {
 
   public updateWithDelta = delta => {
     this.value += delta
+    if (this.value < this.minVal) {
+      this.value = this.minVal
+    } else if (this.value > this.maxVal) {
+      this.value = this.maxVal
+    }
     this.listeners.map(listener => listener(this))
   }
 
