@@ -29,7 +29,7 @@ type callbackFunc = (error: any, response: any) => void
 class Bot {
   // API
   public clearResponses: () => void
-  public emit: (eventName: string) => boolean
+  public emit: (eventName: string) => void
   public metadata: Map
   public printStats: () => string
   public registerEvents: (events: BotEvent[]) => void
@@ -47,6 +47,7 @@ class Bot {
 
   constructor() {
     configureWinston()
+    this.createResponseManager()
     this.createEventManager()
     this.createStatManager()
   }
@@ -73,9 +74,9 @@ class Bot {
       stats
     } = options
     this.connectToDiscord({ token: discordAuthToken, autorun: true })
-    this.registerEvents(events)
     this.metadata = metadata
     this.registerResponses(responses)
+    this.registerEvents(events)
     this.EventManager.scheduleEvents(scheduledEvents)
     this.StatManager.registerStats(stats)
 
@@ -100,23 +101,22 @@ class Bot {
 
   public connectToDiscord = discordOptions => {
     this.DiscordClient = new Discord.Client(discordOptions)
-    this.createResponseManager()
-    this.ResponseManager.listen()
     this.DiscordClient.on('ready', evt => {
+      this.ResponseManager.listen(this.DiscordClient)
       winston.info('Bot Connected')
       winston.info(`Logged in as: ${this.username} (${this.id})`)
     })
   }
 
   private createResponseManager() {
-    this.ResponseManager = new ResponseManager(this.DiscordClient)
+    this.ResponseManager = new ResponseManager()
     this.registerResponses = this.ResponseManager.registerResponses
     this.clearResponses = this.ResponseManager.clearResponses
   }
 
   private createEventManager() {
     this.EventManager = new EventManager()
-    this.emit = this.EventManager.eventEmitter.emit
+    this.emit = event => this.EventManager.eventEmitter.emit(event)
     this.registerEvents = this.EventManager.registerEvents
     this.unregisterEvents = this.EventManager.unregisterEvents
     this.unscheduleEvents = this.EventManager.unscheduleEvents
